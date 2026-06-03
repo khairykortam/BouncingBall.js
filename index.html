@@ -5,9 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>DOC</title>
     <link href="css/style.css" rel="stylesheet" />
-  </head>
-  <body>
-    <canvas id="canvas" width="640" height="480"></canvas>
-    <script src="index.js"></script>
+    </head>
+  <body style="background:black;">
+    <audio id="audio" src=""></audio>
+    <canvas id="canvas"></canvas>
+    <script>
+    function fillCircle(context, x, y, radius, color = "grey") {
+        context.beginPath();
+        context.arc(x, y, radius, 0, Math.PI * 2, false);
+        context.fillStyle = color;
+        context.fill();
+      }
+      (() => {
+        const audio = document.getElementById('audio');
+        const canvas = document.getElementById('canvas');
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext('2d');
+        const speed = 100;
+
+        let start;
+        const radius = 67;
+        let dx = speed, dy = speed;
+        let x=radius+10,y=radius+10;
+
+        function inc(time) {
+          if (start === undefined) {
+            start = time;
+          }
+          if(x+radius+dx>= width || x-radius <=0) {dx =-dx;audio.play();}
+          if(y+radius+dy>= height || y-radius <=0){dy=-dy;audio.play();}
+          const elapsed = (time - start) * 0.001;
+          x += dx * elapsed;
+          y += dy * elapsed;
+
+          
+
+
+         // context.fillStyle = "black";
+          context.fillRect(0, 0, width, height);
+          fillCircle(context, x, y, 10,"red");
+         
+        }
+      window.requestAnimationFrame(inc);
+      })()
+      </script>
   </body>
 </html>
