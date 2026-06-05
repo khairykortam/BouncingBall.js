@@ -5,113 +5,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DOC</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      font-size: 100%;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-
-    canvas {
-      display: inline;
-      outline: 0;
-      margin: 50;
-      border: 1px solid #E0E0E0;
-    }
-
-    canvas.fullscreen {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      border: none;
-      margin: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body style="background:black;">
-  <audio id="audio" src=""></audio>
+  <input id="slider" type=range min=0 max=200 value=0 step=1 list=tickmarks>
+  <datalist id=tickmarks>
+    <option>0</option>
+    <option>20</option>
+    <option>40</option>
+    <option>60</option>
+    <option>80</option>
+    <option>100</option>
+    <option>120</option>
+    <option>140</option>
+    <option>160</option>
+    <option>180</option>
+    <option>200</option>
+  </datalist>
+  <p id="displayspeed">Speed: 0</p>
+  <p id="displaybounce">Bounces: 0</p>
+ <!--<audio id="audio" src=""></audio>--> 
+
+ <!-- <div style="position:relative; z-index:10; background:black;width:10%;"> 
+  <p> pick up a color:</p>
+  <input type="color" id="ballcolor" name="ballcolor" value="red"/>
+  <label for="ballcolor">Ball Color</label>
+ </div> -->
   <canvas id="canvas" class="fullscreen"></canvas>
-  <script>
-    function fillCircle(context, x, y, radius, color = "grey") {
-      context.beginPath();
-      context.arc(x, y, radius, 0, Math.PI * 2, false);
-      context.fillStyle = color;
-      context.fill();
-    }
-    (() => {
-      const audio = document.getElementById('audio');
-      const canvas = document.getElementById('canvas');
-      document.body.style.overflow = 'hidden';
-      let width = window.innerWidth;
-      let height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-      const context = canvas.getContext('2d');
-      const speed = 100;
-
-      window.addEventListener('resize', () => {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
-      });
-
-
-      const radius = 67;
-      let dx = 1, dy = 1;
-      let x = radius + 10, y = radius + 10;
-      let start;
-      function inc(time) {
-        if (start === undefined) {
-          start = time;
-        }
-        if (x + radius >= width || x - radius <= 0) { dx = -dx; audio.pause(); audio.currentTime = 0; audio.play(); }
-        if (y + radius >= height || y - radius <= 0) { dy = -dy; audio.pause(); audio.currentTime = 0; audio.play(); }
-        const elapsed = (time - start) * 0.001;
-        x += dx * speed * elapsed;
-        y += dy * speed * elapsed;
-
-        // Clamp position to stay within bounds
-        x = Math.max(radius, Math.min(width - radius, x));
-        y = Math.max(radius, Math.min(height - radius, y));
-
-        start = time;
-
-        // context.fillStyle = "black";
-        context.clearRect(0, 0, width, height);
-        fillCircle(context, x, y, radius, "red");
-        window.requestAnimationFrame(inc);
-      }
-      window.requestAnimationFrame(inc);
-      document.addEventListener('keydown', (event) => {
-        switch (event.code) {
-          case 'ArrowDown': {
-            console.log('down');
-          }
-          case 'ArrowUp': {
-
-          }
-          case 'ArrowLeft': {
-
-          }
-          case 'ArrowRight': {
-
-          }
-        }
-      });
-    })()
-  </script>
+  <script src="index.js"></script>
 </body>
 
 </html>

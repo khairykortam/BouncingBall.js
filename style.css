@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+canvas {
+    display: inline;
+    outline: 0;
+    margin: 50;
+    border: 1px solid #E0E0E0;
+}
+
+canvas.fullscreen {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    margin: 0;
+}
+
+#slider,
+#displayspeed,
+#displaybounce {
+    position: absolute;
+    z-index: 100;
+    background: white;
+}
+
+#slider {
+    top: 10px;
+    left: 10px;
+}
+
+#displayspeed {
+    top: 50px;
+    left: 10px;
+}
+
+#displaybounce {
+    top: 90px;
+    left: 10px;
+}
